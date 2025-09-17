@@ -18,6 +18,7 @@ const Login = () => {
   const location = useLocation();
 
   // Redirect if already authenticated
+  
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
