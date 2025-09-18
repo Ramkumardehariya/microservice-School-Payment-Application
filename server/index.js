@@ -35,7 +35,7 @@ app.use('/api/v1/transactions', transactionRoutes);
 app.use('/api/v1/webhook', webhookRoutes);
 
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
   res.status(200).json({
