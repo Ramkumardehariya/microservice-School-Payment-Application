@@ -21,7 +21,7 @@ dbConnect();
 // CORS middleware
 const allowedOrigins = [
   "http://localhost:3000", // Development
-  "https://microservice-school-paym-git-f26022-ramkumar-dehariyas-projects.vercel.app" // Production
+  "https://microservice-school-payment-applica.vercel.app" // Production
 ];
 
 app.use(cors({
