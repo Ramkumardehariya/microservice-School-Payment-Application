@@ -19,13 +19,8 @@ app.use(cookieParser());
 
 dbConnect();
 // CORS middleware
-app.use(cors({
-  origin: [
-    "http://localhost:3000",  // for local dev
-    "https://microservice-school-payment-applica.vercel.app" // for production
-  ],
-  credentials: true 
-}));
+app.use(cors({ origin: "*" }));
+
 
 // Routes
 app.use('/api/v1/auth', authRoutes);
