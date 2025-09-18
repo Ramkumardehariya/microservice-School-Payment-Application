@@ -20,7 +20,7 @@ app.use(cookieParser());
 dbConnect();
 // CORS middleware
 const allowedOrigins = [
-  "http://localhost:3000", // Development
+  "http://localhost:5173", // Development
   "https://microservice-school-payment-applica.vercel.app" // Production
 ];
 
