@@ -20,7 +20,10 @@ app.use(cookieParser());
 dbConnect();
 // CORS middleware
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: [
+    "http://localhost:3000",  // for local dev
+    "https://microservice-school-payment-applica.vercel.app" // for production
+  ],
   credentials: true 
 }));
 
@@ -32,7 +35,7 @@ app.use('/api/v1/transactions', transactionRoutes);
 app.use('/api/v1/webhook', webhookRoutes);
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6000;
 
 app.get("/", (req, res) => {
   res.status(200).json({
