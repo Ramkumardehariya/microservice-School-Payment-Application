@@ -108,7 +108,8 @@ exports.login = async(req, res) => {
 
             //create cookie
             res.cookie("token", token, options).status(200).json({
-                success: true, 
+                success: true,
+                token: token,
                 message: "Logged in successfull"
             })
             //return result

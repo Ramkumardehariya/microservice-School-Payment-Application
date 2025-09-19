@@ -1,6 +1,7 @@
 // src/contexts/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../utils/api';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const AuthContext = createContext();
 
@@ -23,28 +24,31 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAuthStatus = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const response = await api.get('/auth/verify-token');
-        if (response.data.success) {
-          setUser(response.data.user);
-          setIsAuthenticated(true);
-        } else {
-          logout();
-        }
+  try {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true); // ✅ Optimistic auth state
+      const response = await api.get('/auth/verify-token');
+      if (response.data.success) {
+        setUser(response.data.user);
+      } else {
+        logout();
       }
-    } catch (error) {
-      console.error('Auth check failed:', error);
-      logout();
-    } finally {
-      setIsLoading(false);
     }
-  };
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    logout();
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const login = async (email, password) => {
+    setIsLoading(true);
     try {
       const response = await api.post('/auth/login', { email, password });
+      console.log(response.data);
       if (response.data.success) {
         const { token, user } = response.data;
         localStorage.setItem('token', token);
@@ -59,8 +63,11 @@ export const AuthProvider = ({ children }) => {
         success: false,
         message: error.response?.data?.message || 'Login failed. Please try again.',
       };
+    } finally {
+      setIsLoading(false); // ✅ Now this runs regardless of success or failure
     }
-  };
+};
+
 
   const signup = async (userData) => {
     try {
