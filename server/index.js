@@ -20,22 +20,31 @@ app.use(cookieParser());
 dbConnect();
 // CORS middleware
 const allowedOrigins = [
-  "http://localhost:5173", // Development
-  "https://microservice-school-payment-applica.vercel.app" // Production
+  "http://localhost:5173"
+  // "https://microservice-school-payment-applica.vercel.app"
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+const corsOptionsDelegate = function (req, callback) {
+  const origin = req.header("Origin");
+  console.log("CORS Origin:", origin);
+
+  if (!origin || allowedOrigins.includes(origin)) {
+    callback(null, {
+      origin: true,
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization", "Accept", "X-Requested-With"]
+    });
+  } else {
+    callback(new Error("Not allowed by CORS"), {
+      origin: false
+    });
+  }
+};
+
+// ✅ Use CORS for all requests
+app.use(cors(corsOptionsDelegate));
+
 
 
 // Routes

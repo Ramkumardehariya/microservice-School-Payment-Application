@@ -1,7 +1,7 @@
 // src/utils/api.js
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://microservice-school-payment-application-5.onrender.com/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://microservice-school-payment-application-6.onrender.com/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -18,7 +18,7 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    
+
     return Promise.reject(error);
   }
 );
