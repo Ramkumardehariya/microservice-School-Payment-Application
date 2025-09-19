@@ -39,11 +39,11 @@ app.use(cors({
 
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/payment', paymentRoutes);
-app.use('/school', schoolRoutes);
-app.use('/transactions', transactionRoutes);
-app.use('/webhook', webhookRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/payment', paymentRoutes);
+app.use('/api/v1/school', schoolRoutes);
+app.use('/api/v1/transactions', transactionRoutes);
+app.use('/api/v1/webhook', webhookRoutes);
 
 
 const PORT = process.env.PORT || 5000;
