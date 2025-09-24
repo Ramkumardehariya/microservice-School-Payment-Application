@@ -1,9 +1,12 @@
 // src/components/Layout/Header.jsx
 import { Sun, Moon, LogOut, User } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
   const { isDark, toggleTheme } = useTheme();
+
+  const {user} = useAuth();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -27,9 +30,9 @@ const Header = () => {
               <Moon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
             )}
           </button>
-          <div className="flex items-center space-x-2">
+          <div className=" cursor-pointer flex items-center space-x-2">
             <User className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-            <span className="text-sm text-gray-700 dark:text-gray-300">Admin</span>
+            <span className="text-sm text-gray-700 dark:text-gray-300">{user.role}</span>
           </div>
           <button
             onClick={handleLogout}

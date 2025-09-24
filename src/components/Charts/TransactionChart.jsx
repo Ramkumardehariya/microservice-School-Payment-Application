@@ -3,12 +3,39 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const TransactionChart = ({ data }) => {
   // Process data for the chart
-  const chartData = Object.entries(data).map(([date, values]) => ({
-    date,
-    success: values.success || 0,
-    pending: values.pending || 0,
-    failed: values.failed || 0,
-  }));
+  console.log("data hai: ", data);
+
+if (!Array.isArray(data)) {
+  console.error("Expected data to be an array of transactions");
+  return [];
+}
+
+const grouped = data.reduce((acc, transaction) => {
+  const status = (transaction.status?.[0] || "").toLowerCase();
+  const date = new Date(transaction.payment_time?.[0] || transaction.createdAt)
+    .toISOString()
+    .split("T")[0]; // YYYY-MM-DD format
+
+  if (!acc[date]) {
+    acc[date] = { success: 0, pending: 0, failed: 0 };
+  }
+
+  if (status === "success") acc[date].success += 1;
+  else if (status === "pending") acc[date].pending += 1;
+  else acc[date].failed += 1;
+
+  return acc;
+}, {});
+
+// Now convert to chart-friendly array
+const chartData = Object.entries(grouped).map(([date, values]) => ({
+  date,
+  success: values.success,
+  pending: values.pending,
+  failed: values.failed,
+}));
+
+console.log("Chart Data: ", chartData);
 
   return (
     <div className="card h-80">

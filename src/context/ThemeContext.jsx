@@ -17,6 +17,7 @@ export const ThemeProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
+  console.log("dark mode is: ",isDark);
   useEffect(() => {
     localStorage.setItem('theme', JSON.stringify(isDark));
     if (isDark) {

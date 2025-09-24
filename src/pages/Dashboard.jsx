@@ -19,9 +19,9 @@ const Dashboard = () => {
     if (data?.data?.transactions) {
       const transactions = data.data.transactions;
       const total = transactions.length;
-      const success = transactions.filter(t => t.status === 'success').length;
-      const pending = transactions.filter(t => t.status === 'pending').length;
-      const failed = transactions.filter(t => t.status === 'failed' || t.status === 'cancelled').length;
+      const success = transactions.filter(t => t.status[0] === 'success').length;
+      const pending = transactions.filter(t => t.status[0] === 'pending').length;
+      const failed = transactions.filter(t => t.status[0] === 'failed' || t.status === 'cancelled').length;
       
       setStats({ total, success, pending, failed });
     }
@@ -54,10 +54,10 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Dashboard</h2>
+      <h2 className="w-full text-2xl font-bold text-gray-900 mb-6">Dashboard</h2>
       
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard 
           title="Total Transactions" 
           value={stats.total} 
@@ -114,7 +114,7 @@ const Dashboard = () => {
             <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
               {data?.data?.transactions.slice(0, 5).map((transaction) => (
                 <tr key={transaction.collect_id}>
-                  <td className="table-cell">{transaction.custom_order_id}</td>
+                  <td className="table-cell">{transaction.collect_id}</td>
                   <td className="table-cell">{formatCurrency(transaction.transaction_amount)}</td>
                   <td className="table-cell">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${

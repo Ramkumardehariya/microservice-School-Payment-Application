@@ -16,6 +16,7 @@ export const useTransactions = (page = 1, limit = 10, filters = {}) => {
     queryKey: ["transactions", { page, limit, filters }],
     queryFn: async () => {
       const res = await api.get(`/transactions/getAllTransactions?${params}`);
+      console.log("result of data: ", res);
       return res.data;
     },
     placeholderData: (prev) => prev, // ✅ replaces keepPreviousData

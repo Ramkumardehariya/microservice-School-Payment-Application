@@ -11,8 +11,6 @@ import Login from './pages/Login';
 import Signup from './pages/SignUp';
 import NotFound from './pages/NotFound';
 import { AuthProvider } from './context/AuthContext';
-import { useAuth } from './context/AuthContext';
-import LoadingSpinner from './components/UI/LoadingSpinner';
 import CreatePayment from './pages/CreatePayment';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
